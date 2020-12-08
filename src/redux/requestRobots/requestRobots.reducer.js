@@ -2,11 +2,11 @@ import { requestRobotsActionTypes } from './requestRobots.types';
 
 const INITIAL_STATE = {
     isPending: false,
-    robots: [],
-    error: undefined
+    robotsData: [],
+    errorMessage: undefined
 };
 
-export const requestRobotsReducer = (state=INITIAL_STATE, action) => {
+export const robotsReducer = (state=INITIAL_STATE, action) => {
     switch (action.type) {
         case requestRobotsActionTypes.REQUEST_ROBOTS_PENDING:
             return {
@@ -16,13 +16,13 @@ export const requestRobotsReducer = (state=INITIAL_STATE, action) => {
         case requestRobotsActionTypes.REQUEST_ROBOTS_SUCCESS:
             return {
                 ...state,
-                robots: action.payload,
+                robotsData: action.payload,
                 isPending: false
             }
         case requestRobotsActionTypes.REQUEST_ROBOTS_FAILED:
             return {
                 ...state,
-                error: action.payload
+                errorMessage: action.payload
             }
         default :
             return state

@@ -1,7 +1,6 @@
 import React, { Component} from 'react';
 
 import { connect } from 'react-redux';
-import { setSearchField } from '../redux/searchField/searchField.actions';
 import { requestRobotsData } from '../redux/requestRobots/requestRobots.actions';
 
 import {createStructuredSelector} from 'reselect';
@@ -24,8 +23,8 @@ class App extends Component {
 
 
     render () {
-        const { searchField, onSearchChange, isPending, robots } = this.props;
-        const filteredRobots = robots.filter(robot => {
+        const { searchField, isPending, robotsData } = this.props;
+        const filteredRobots = robotsData.filter(robot => {
             return robot.name.toLowerCase().includes(searchField.toLowerCase())
         })
         return isPending ?
@@ -33,10 +32,10 @@ class App extends Component {
         (
             <div className='tc'>
                 <h1 className='f1'>robo friends</h1>
-                <SearchBox searchChange={onSearchChange}/>
+                <SearchBox/>
                 <Scroll>
                     <ErrorBoundary>
-                        <CardList robots={ filteredRobots }/>
+                        <CardList robots={filteredRobots}/>
                     </ErrorBoundary>
                 </Scroll>
             </div>
@@ -60,13 +59,12 @@ const mapStateToProps = createStructuredSelector(
     {
         searchField: selectSearchField,
         isPending : selectRobotsPending,
-        robots: selectRobotsSuccess
+        robotsData: selectRobotsSuccess
     }
 );
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSearchChange: event => dispatch(setSearchField(event.target.value)),
         onRequestRobots: () => dispatch(requestRobotsData())
     }
 };

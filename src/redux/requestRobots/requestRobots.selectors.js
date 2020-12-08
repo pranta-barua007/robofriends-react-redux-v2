@@ -1,19 +1,19 @@
 import {createSelector} from 'reselect';
 
-const selectRequestRobots  = state => state.requestRobots;
+const selectRobots  = state => state.robots;
 
 export const selectRobotsPending = createSelector(
-    [selectRequestRobots],
-    (requestRobots) => requestRobots.isPending
+    [selectRobots],
+    (robots) => robots.isPending
 );
 
 export const selectRobotsSuccess = createSelector(
-    [selectRequestRobots],
-    (requestRobots) => requestRobots.robots 
+    [selectRobots],
+    (robots) => robots.robotsData 
 );
 
 export const selectRobotsFailed = createSelector(
-    [selectRequestRobots],
-    (requestRobots) => requestRobots.error
+    [selectRobots],
+    (robots) => robots.errorMessage
 );
 

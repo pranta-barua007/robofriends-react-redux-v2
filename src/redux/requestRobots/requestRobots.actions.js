@@ -1,19 +1,19 @@
 import { requestRobotsActionTypes } from './requestRobots.types';
 
-export const requestRobotsIsPending = () => (
+export const robotsIsPending = () => (
     {
         type: requestRobotsActionTypes.REQUEST_ROBOTS_PENDING
     }
 );
 
-export const requestRobotsSuccess = ( data ) => (
+export const robotsSuccess = ( data ) => (
     {
         type: requestRobotsActionTypes.REQUEST_ROBOTS_SUCCESS,
         payload: data
     }
 );
 
-export const requestRobotsFailed = (errorMessage) => (
+export const robotsFailed = (errorMessage) => (
     {
         type: requestRobotsActionTypes.REQUEST_ROBOTS_FAILED,
         payload: errorMessage
@@ -21,9 +21,9 @@ export const requestRobotsFailed = (errorMessage) => (
 );
 
 export const requestRobotsData = () => (dispatch) => {
-    dispatch(requestRobotsIsPending());
+    dispatch(robotsIsPending());
     fetch('https://jsonplaceholder.typicode.com/users')
         .then(response => response.json())
-        .then(data => dispatch(requestRobotsSuccess(data)))
-        .catch(error => dispatch(requestRobotsFailed(error.message)))
+        .then(data => dispatch(robotsSuccess(data)))
+        .catch(error => dispatch(robotsFailed(error.message)))
 }
